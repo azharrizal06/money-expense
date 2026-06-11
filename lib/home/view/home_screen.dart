@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money_expense/DB%20helper/db_helper.dart';
-import 'package:money_expense/home/Home_controller.dart';
-import 'package:money_expense/home/addScreen.dart';
+import 'package:money_expense/home/controller/Home_controller.dart';
+import 'package:money_expense/home/view/addScreen.dart';
 
-import 'bycalender.dart';
+import '../widget/bycalender.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});

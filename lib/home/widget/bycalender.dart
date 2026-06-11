@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:money_expense/DB%20helper/db_helper.dart';
-
-import 'Home_controller.dart';
+import 'package:money_expense/home/controller/Home_controller.dart';
 
 class Bycalender extends StatefulWidget {
   const Bycalender({super.key});
@@ -95,23 +93,4 @@ class _BycalenderState extends State<Bycalender> {
       ),
     );
   }
-}
-
-/// 🔹 Helper nama bulan
-String _getMonthName(int month) {
-  const months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ];
-  return months[month - 1];
 }
