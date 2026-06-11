@@ -127,7 +127,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Tambah Pengeluaran Baru',
+          'Tambah Catatan',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
@@ -137,7 +137,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildTextField(_nameController, texthint: 'Nama pengeluaran'),
+            _buildTextField(_nameController, texthint: 'deskripsi'),
             const SizedBox(height: 15),
 
             _buildReadOnlyTextField(

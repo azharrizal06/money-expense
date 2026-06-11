@@ -164,27 +164,35 @@ class HomeScreen extends StatelessWidget {
 
     return SizedBox(
       height: height / 6,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children:
-            homeController.categoryTotals.entries.map((entry) {
-              final catName = entry.key;
-              final total = entry.value;
+      child:
+          homeController.categoryTotals.isEmpty
+              ? const Center(
+                child: Text(
+                  "Belum menambahkan catatan",
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              )
+              : ListView(
+                scrollDirection: Axis.horizontal,
+                children:
+                    homeController.categoryTotals.entries.map((entry) {
+                      final catName = entry.key;
+                      final total = entry.value;
 
-              final tx = homeController.transactions.firstWhere(
-                (t) => t['categoryName'] == catName,
-                orElse: () => {},
-              );
+                      final tx = homeController.transactions.firstWhere(
+                        (t) => t['categoryName'] == catName,
+                        orElse: () => {},
+                      );
 
-              return _buildCategoryItem(
-                catName,
-                "Rp. ${total.toStringAsFixed(0)}",
-                tx['categoryIcon'] ?? "assets/default.png",
-                Colors.blue,
-                context,
-              );
-            }).toList(),
-      ),
+                      return _buildCategoryItem(
+                        catName,
+                        "Rp. ${total.toStringAsFixed(0)}",
+                        tx['categoryIcon'] ?? "assets/default.png",
+                        Colors.blue,
+                        context,
+                      );
+                    }).toList(),
+              ),
     );
   }
 
@@ -243,49 +251,58 @@ class HomeScreen extends StatelessWidget {
             .reversed
             .toList();
 
-    return ListView.builder(
-      itemCount: dailyTx.length,
-      shrinkWrap: true, // supaya muat dalam Column
-      physics:
-          const NeverScrollableScrollPhysics(), // biar tidak bentrok scroll
-      itemBuilder: (context, index) {
-        final txn = dailyTx[index];
-        if (dailyTx.isEmpty) {
-          return const Text("Tidak ada transaksi");
-        }
-        return Card(
-          color: Colors.white,
-          elevation: 2,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Image.asset(
-                    txn['categoryIcon'],
-                    color: Colors.white,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    txn['title'],
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  "Rp ${txn['amount']}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+    return homeController.transactions.isEmpty
+        ? const Center(
+          child: Text(
+            "Belum menambahkan catatan",
+            style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
+        )
+        : ListView.builder(
+          itemCount: dailyTx.length,
+          shrinkWrap: true, // supaya muat dalam Column
+          physics:
+              const NeverScrollableScrollPhysics(), // biar tidak bentrok scroll
+          itemBuilder: (context, index) {
+            final txn = dailyTx[index];
+            if (dailyTx.isEmpty) {
+              return const Text("Tidak ada transaksi");
+            }
+            return Card(
+              color: Colors.white,
+              elevation: 2,
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      child: Image.asset(
+                        txn['categoryIcon'],
+                        color: Colors.white,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        txn['title'],
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "Rp ${txn['amount']}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
-      },
-    );
   }
 }
